@@ -15,3 +15,9 @@
 
 ```bash
 poetry install
+```
+
+导出requirements.txt
+```bash
+poetry export -f requirements.txt --output requirements.txt --without-hashes
+```
