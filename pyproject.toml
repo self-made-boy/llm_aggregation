@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "llm-aggregation"
+version = "0.1.0"
+description = "聚合各大模型API的服务，包括OpenAI、DeepSeek、Claude等"
+authors = ["self-made-boy"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.2"
+httpx = "^0.28.1"
+python-dotenv = "^1.0.0"
+pydantic = "^2.4.2"
+pydantic-settings = "^2.0.3"
+anthropic = "^0.50.0"
+pyyaml = "^6.0.2"
+boto3 = "^1.38.3"
+poetry-core = "^2.1.2"
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+

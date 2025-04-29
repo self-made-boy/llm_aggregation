@@ -1,0 +1,38 @@
+openai:
+  api_key: ${OPENAI_API_KEY}
+  api_base: ${OPENAI_API_BASE:-https://api.openai.com/v1}
+
+deepseek:
+  api_key: ${DEEPSEEK_API_KEY}
+  api_base: ${DEEPSEEK_API_BASE:-https://api.deepseek.com/v1}
+
+claude:
+  api_key: ${CLAUDE_API_KEY}
+  api_base: ${CLAUDE_API_BASE:-https://api.anthropic.com/v1}
+  proxy: ${CLAUDE_PROXY}
+  bedrock:
+    access_key: ${CLAUDE_BEDROCK_ACCESS_KEY}
+    secret_key: ${CLAUDE_BEDROCK_SECRET_KEY}
+    region: us-east-1
+    event_types:
+      - "message_start"
+      - "content_block_start"
+      - "content_block_delta"
+      - "content_block_stop"
+      - "error"
+      - "message_delta"
+      - "message_stop"
+      - "ping"
+    model_mapping:
+      claude-3-7-sonnet-20250219: us.anthropic.claude-3-7-sonnet-20250219-v1:0
+      claude-3-7-sonnet-20250219-thinking: us.anthropic.claude-3-7-sonnet-20250219-v1:0
+server:
+  host: ${SERVER_HOST:-0.0.0.0}
+  port: ${SERVER_PORT:-8000}
+  debug: ${SERVER_DEBUG:-false}
+
+logging:
+  level: ${LOG_LEVEL:-INFO}
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: ${LOG_FILE:-}
+  console: ${LOG_CONSOLE:-true}
