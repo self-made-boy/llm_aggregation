@@ -25,6 +25,7 @@ class ClaudeConfig(BaseModel):
     auth_token: Optional[str] = None
     api_base: str = "https://api.anthropic.com/v1"
     proxy: Optional[str] = None
+    pxy_path_base: str = "/"
     bedrock: ClaudeBedrockConfig
 
 
