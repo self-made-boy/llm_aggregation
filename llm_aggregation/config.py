@@ -9,17 +9,13 @@ from dotenv import load_dotenv
 class OpenAIConfig(BaseModel):
     api_key: Optional[str] = None
     api_base: str = "https://api.openai.com/v1"
-
-
-class DeepSeekConfig(BaseModel):
-    api_key: Optional[str] = None
-    api_base: str = "https://api.deepseek.com/v1"
+    pxy_path_base: str = "/"
 
 
 class ClaudeBedrockConfig(BaseModel):
     access_key: Optional[str] = None
     secret_key: Optional[str] = None
-    region: str = "cn-north-1"
+    region: str = "us-east-1"
     event_types: list[str] = []
     model_mapping: dict[str, str]
 
@@ -47,10 +43,10 @@ class LoggingConfig(BaseModel):
 
 class Settings(BaseModel):
     openai: OpenAIConfig
-    deepseek: DeepSeekConfig
     claude: ClaudeConfig
     server: ServerConfig
     logging: LoggingConfig
+    proxy_path_mapping: dict[str, str]
 
 
 def load_settings() -> Settings:

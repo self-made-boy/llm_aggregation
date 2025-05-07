@@ -1,10 +1,11 @@
 openai:
   api_key: ${OPENAI_API_KEY}
   api_base: ${OPENAI_API_BASE:-https://api.openai.com/v1}
+  pxy_path_base: /api/llm/openai
 
-deepseek:
-  api_key: ${DEEPSEEK_API_KEY}
-  api_base: ${DEEPSEEK_API_BASE:-https://api.deepseek.com/v1}
+proxy_path_mapping:
+  '/api/llm/openai/v1': https://api.openai.com/v1
+
 
 claude:
   api_key: ${CLAUDE_API_KEY}

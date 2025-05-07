@@ -21,6 +21,13 @@ async def messages(request: Request):
         # 直接从请求中获取 JSON 数据
         request_data = await request.body()
         api_key = request.headers.get("x-api-key")
+        if api_key is None:
+            api_key = request.headers.get('authorization')
+            if api_key is not None and api_key.startswith("Bearer "):
+                api_key = api_key[len("Bearer "):]
+
+
+
         if not service.check_key(api_key):
             raise HTTPException(status_code=403, detail="Invalid API key")
 
