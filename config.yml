@@ -1,7 +1,8 @@
 openai:
   api_key: ${OPENAI_API_KEY}
   api_base: ${OPENAI_API_BASE:-https://api.openai.com/v1}
-  pxy_path_base: /api/llm/openai
+  pxy_path_base: /api/llm/openai/v1
+  child_keys: ${OPENAI_CHILD_API_KEY}
 
 proxy_path_mapping:
   '/api/llm/openai/v1': https://api.openai.com/v1

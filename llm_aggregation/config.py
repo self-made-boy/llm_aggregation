@@ -10,6 +10,7 @@ class OpenAIConfig(BaseModel):
     api_key: Optional[str] = None
     api_base: str = "https://api.openai.com/v1"
     pxy_path_base: str = "/"
+    child_keys: Optional[str] = None
 
 
 class ClaudeBedrockConfig(BaseModel):
