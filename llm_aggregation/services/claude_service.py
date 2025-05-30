@@ -103,7 +103,7 @@ class ClaudeService:
                 model=model,
                 metadata=request_data.get("metadata", NOT_GIVEN),
                 stop_sequences=request_data.get("stop_sequences", NOT_GIVEN),
-                system=request_data.get("metadata", NOT_GIVEN),
+                system=request_data.get("system", NOT_GIVEN),
                 temperature=temperature,
                 top_k=request_data.get("top_k", NOT_GIVEN),
                 top_p=request_data.get("top_p", NOT_GIVEN),
