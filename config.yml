@@ -5,7 +5,7 @@ openai:
   child_keys: ${OPENAI_CHILD_API_KEY}
 
 proxy_path_mapping:
-  '/api/llm/openai/v1': https://api.openai.com/v1
+  '/api/llm/pxy/openai/v1': https://api.openai.com/v1
 
 
 claude:
