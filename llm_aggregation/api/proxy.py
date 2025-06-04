@@ -1,9 +1,9 @@
 import httpx
 from fastapi import APIRouter, Request
-from fastapi.responses import StreamingResponse
 from fastapi.responses import PlainTextResponse
 
 from ..config import settings
+from .streaming_response import ProxyStreamingResponse
 
 router = APIRouter()
 
@@ -24,21 +24,28 @@ async def messages(request: Request, path: str):
     headers.pop("host", None)
     query_params = dict(request.query_params)
     body = await request.body()
-    async with httpx.AsyncClient() as client:
-        try:
-            response = await client.request(
-                method=request.method,
-                url=target,
-                headers=headers,
-                params=query_params,
-                content=body,
-                timeout=30.0
-            )
-            return StreamingResponse(
-                content=response.aiter_bytes(),
-                status_code=response.status_code,
-                headers=dict(response.headers),
-                media_type=response.headers.get("content-type", "")
-            )
-        except Exception as e:
-            return PlainTextResponse(status_code=500, content=str(e))
+    
+    async def stream_proxy():
+        async with httpx.AsyncClient() as client:
+            try:
+                async with client.stream(
+                    method=request.method,
+                    url=target,
+                    headers=headers,
+                    params=query_params,
+                    content=body,
+                    timeout=30.0
+                ) as response:
+                    # 首先发送状态码和头信息
+                    yield (response.status_code, dict(response.headers), b"")
+                    
+                    # 然后流式传输数据
+                    async for chunk in response.aiter_bytes():
+                        yield chunk
+            except Exception as e:
+                yield (500, {"content-type": "text/plain"}, str(e).encode())
+    
+    try:
+        return ProxyStreamingResponse(content=stream_proxy())
+    except Exception as e:
+        return PlainTextResponse(status_code=500, content=str(e))
